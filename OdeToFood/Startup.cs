@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using OdeToFood.Services;
 
 namespace OdeToFood
 {
@@ -19,13 +20,13 @@ namespace OdeToFood
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IGreeter, Greeter>(); //aici se seteaza implementarea concreta care sa se dea pentru un Igreeter
+            services.AddScoped<IRestaurantRepository, InMemoryRestaurantData>();
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, 
                               IHostingEnvironment env,
-                              //IConfiguration configuration
                               IGreeter greeter,
                               ILogger<Startup> logger)
         {
@@ -50,13 +51,13 @@ namespace OdeToFood
             {
                 var greeting = greeter.GetMessageOfTheDay();
                 context.Response.ContentType = "text/plain";
-                await context.Response.WriteAsync($"{ greeting } : { env.EnvironmentName }");
+                await context.Response.WriteAsync($"Default route: \n{ greeting } : { env.EnvironmentName }");
             });
         }
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
         {
-            // /Home/Index
+            // /Home/Index/4
 
             routeBuilder.MapRoute("Default", 
                 "{controller=Home}/{action=Index}/{id?}");
