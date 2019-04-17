@@ -18,6 +18,7 @@ namespace OdeToFood
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IGreeter, Greeter>(); //aici se seteaza implementarea concreta care sa se dea pentru un Igreeter
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,11 +41,9 @@ namespace OdeToFood
 
             //writing custom piece of middleware
 
-            //app.UseDefaultFiles();
-            //app.UseStaticFiles();
-            //sau ambele in una cu 
-            app.UseFileServer();
-            
+            app.UseStaticFiles();
+
+            app.UseMvcWithDefaultRoute();
 
             app.Run(async (context) =>
             {
