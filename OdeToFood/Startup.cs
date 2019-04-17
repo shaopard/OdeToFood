@@ -27,10 +27,10 @@ namespace OdeToFood
                               IGreeter greeter,
                               ILogger<Startup> logger)
         {
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
             //    app.Run(async (context) =>
             //    {
@@ -39,34 +39,17 @@ namespace OdeToFood
             //    });
 
             //writing custom piece of middleware
-            app.Use(next =>
-            {
-                // Urmeaza - functia middleware processing pipeline apelata o data per request
-                return async context =>
-                {
-                    logger.LogInformation("Request incoming");
-                    if (context.Request.Path.StartsWithSegments("/mym"))
-                    {
-                        await context.Response.WriteAsync("Hit!!");
-                        logger.LogInformation("Request handled");
-                    }
-                    else
-                    {
-                        await next(context);
-                        logger.LogInformation("Response outgoint");
-                    }
-                };
-            });
 
-            app.UseWelcomePage(new WelcomePageOptions
-            {
-                Path = "/wp"
-            });
+            //app.UseDefaultFiles();
+            //app.UseStaticFiles();
+            //sau ambele in una cu 
+            app.UseFileServer();
+            
 
             app.Run(async (context) =>
             {
                 var greeting = greeter.GetMessageOfTheDay();
-                await context.Response.WriteAsync(greeting);
+                await context.Response.WriteAsync($"{ greeting } : { env.EnvironmentName }");
             });
         }
     }
