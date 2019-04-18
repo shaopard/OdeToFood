@@ -18,7 +18,7 @@ namespace OdeToFood.Services
 
         public string GetMessageOfTheDay()
         {
-            return "Greetings!!";
+            return "A development Hello!!";
         }
     }
 }

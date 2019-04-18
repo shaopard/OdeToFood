@@ -12,7 +12,8 @@
 
     <footer>
         @RenderSection("footer", required: false)
-        @DateTime.Now.Year
+        @*@await Component.InvokeAsync("Greeter")*@
+        <vc:greeter></vc:greeter>
     </footer>
 </body>
 </html>

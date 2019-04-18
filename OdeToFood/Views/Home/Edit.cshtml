@@ -1,0 +1,23 @@
+﻿@model Restaurant
+
+<h1>
+    Edit @Model.Name
+</h1>
+
+<form method="post">
+    @Html.HiddenFor(model => model.Id)
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+        @Html.ValidationMessageFor(mod => mod.Name)
+    </div>
+
+    <div>
+        <label asp-for="Cuisine"></label>
+        <select asp-for="Cuisine"
+                asp-items="@Html.GetEnumSelectList<CuisineType>()"></select>
+    </div>
+
+    <input type="submit" name="save" value="Save" />
+</form>
