@@ -20,7 +20,7 @@ namespace OdeToFood
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IGreeter, Greeter>(); //aici se seteaza implementarea concreta care sa se dea pentru un Igreeter
-            services.AddScoped<IRestaurantRepository, InMemoryRestaurantData>();
+            services.AddSingleton<IRestaurantRepository, InMemoryRestaurantData>();
             services.AddMvc();
         }
 

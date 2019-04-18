@@ -1,11 +1,13 @@
 ﻿using OdeToFood.Models;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OdeToFood.ViewModels
 {
     public class RestaurantDto
     {
-        public IEnumerable<Restaurant> Restaurants { get; set; }
-        public string CurrentMessage { get; set; }
+        [Required, MaxLength(80)]
+        public string Name { get; set; }
+
+        public CuisineType Cuisine { get; set; }
     }
 }

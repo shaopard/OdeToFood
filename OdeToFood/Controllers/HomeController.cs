@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OdeToFood.Models;
 using OdeToFood.Services;
 using OdeToFood.ViewModels;
 
@@ -18,7 +19,7 @@ namespace OdeToFood.Controllers
 
         public IActionResult Index()
         {
-            var model = new RestaurantDto();
+            var model = new HomeIndexViewModel();
             model.Restaurants = _restaurantRepository.GetAll();
             model.CurrentMessage = _greeter.GetMessageOfTheDay();
 
@@ -44,9 +45,23 @@ namespace OdeToFood.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(RestaurantDto restaurant)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var newRestaurant = new Restaurant();
+                newRestaurant.Name = restaurant.Name;
+                newRestaurant.Cuisine = restaurant.Cuisine;
+
+                newRestaurant = _restaurantRepository.Add(newRestaurant);
+
+                return RedirectToAction(nameof(Details), new { id = newRestaurant.Id });
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

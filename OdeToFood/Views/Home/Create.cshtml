@@ -6,12 +6,18 @@
 </h1>
 
 <form method="post">
-    <input asp-for="Name" />
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+        @Html.ValidationMessageFor(mod => mod.Name)
+    </div>
 
-    <select asp-for="Cuisine" 
-            asp-items="@Html.GetEnumSelectList<CuisineType>()">
-
-    </select>
+    <div>
+        <label asp-for="Cuisine"></label>
+        <select asp-for="Cuisine"
+                asp-items="@Html.GetEnumSelectList<CuisineType>()"></select>
+    </div>
 
     <input type="submit" name="save" value="Save" />
 </form>

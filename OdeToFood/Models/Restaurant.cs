@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace OdeToFood.Models
 {
@@ -9,6 +6,8 @@ namespace OdeToFood.Models
     {
         public int Id { get; set; }
 
+        [Required, MinLength(1), MaxLength(80)]
+        [Display(Name = "Restaurant name")]
         public string Name { get; set; }
 
         public CuisineType Cuisine { get; set; }
