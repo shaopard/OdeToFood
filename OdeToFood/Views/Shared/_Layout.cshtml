@@ -4,7 +4,6 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="~/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
@@ -12,10 +11,17 @@
         @RenderBody()
     </div>
 
-    <footer>
-        @RenderSection("footer", required: false)
-        @*@await Component.InvokeAsync("Greeter")*@
-        <vc:greeter></vc:greeter>
-    </footer>
+    <div>
+        <footer>
+            @RenderSection("footer", required: false)
+            @*@await Component.InvokeAsync("Greeter")*@
+            <vc:greeter></vc:greeter>
+        </footer>
+    </div>
+    <environment include="Development">
+        <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="~/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+    </environment>
 </body>
 </html>
